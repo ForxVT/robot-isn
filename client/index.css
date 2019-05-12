@@ -1,0 +1,30 @@
+/* ---------------------------------------------------------------- */
+/*                                                                  */
+/*  - index.css                                                     */
+/*                                                                  */
+/*  Style principale du site web.                                   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6, p, a, span, li {
+	font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+}
+
+h1 {
+	text-align: center;
+	font-weight: 700;
+	font-size: 21px;
+}
+
+form {
+	text-align: left;
+}
+
+#text-server-state {
+	margin: 20px 0px 20px 0px;
+}
+
+#div-message: {
+  display: inline;
+  margin: 0 1em 0 1em;
+  width: 30%;
+}

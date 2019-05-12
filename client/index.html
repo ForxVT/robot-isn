@@ -1,0 +1,35 @@
+<!-- ---------------------------------------------------------------- -->
+<!--                                                                  -->
+<!--  - index.html                                                    -->
+<!--                                                                  -->
+<!--  Interface du site web.                                          -->
+<!--                                                                  -->
+<!-- ---------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>Client</title>
+
+    	<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<style>
+    		@import url('reset.css');
+    		@import url('index.css');
+		</style>
+		<div>
+			<h1 id="text-server-state">En attente du serveur...</h1>
+
+			<div id="div-message">
+				<form>
+					<a>Instruction:<br/></a>
+					<input type="text" id="message" placeholder="Votre instruction..."/>
+					<button type="button" onclick="sendMessage()">Envoyer</button>
+				</form>
+				<span id="answer">Réponse: </span>
+			<div/>
+		</div>
+
+		<script src="index.js"></script>
+	</body>
+</html>

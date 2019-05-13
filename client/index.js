@@ -5,11 +5,13 @@
 //  Script JavaScript du site web.                                  //
 //                                                                  //
 // ---------------------------------------------------------------- //
+
 console.log("[CLIENT] Client lancé.")
 
 var webSocket = null;
 var connected = false;
 
+// Fonction effectué avant que la page soit déchargé.
 window.onbeforeunload = function()
 {
     if (connected)
@@ -117,4 +119,4 @@ function sendMessage()
     }
 }
 
-connect("ws://localhost:4444");
+connect("ws://192.168.1.33:4444");

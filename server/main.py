@@ -6,7 +6,7 @@
 #                                                                  #
 # ---------------------------------------------------------------- #
 
-# Importe les différents modules standard de Python nécessaire.
+# Importe le module serveur.
 import server
 
 # Démarre le programme (méthode main).

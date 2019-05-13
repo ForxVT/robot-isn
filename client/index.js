@@ -119,4 +119,4 @@ function sendMessage()
     }
 }
 
-connect("ws://192.168.1.33:4444");
+connect("ws://localhost:4444");

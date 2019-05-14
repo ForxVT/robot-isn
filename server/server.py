@@ -176,7 +176,7 @@ class Server(threading.Thread):
                     'Upgrade: websocket','Connection: Upgrade',
                     'Sec-WebSocket-Accept: {key}\r\n\r\n'
                 )).format(key = responseKey).replace("b'", "").replace("'", "")
-            #  Envoie la réponse.
+            # Envoie la réponse.
             connection.sendto(response.encode("utf-8"), connectionAddress)
 
             # Ajoute un nouveau client avec les valeurs obtenus
@@ -288,6 +288,7 @@ class Server(threading.Thread):
         # Crée une variable de réponse pour le message du client.
         answer = u"Requête inconnue."
         # Sépare le message pour chaque espace.
+        # (de manière à pouvoir ajouter des arguments après une instruction).
         toks = message.split(" ")
 
         # Déconnecte le client du serveur.
@@ -310,10 +311,14 @@ class Server(threading.Thread):
             # Change la vitesse des moteurs.
             if toks[0] == "set":
                 self.robot.setSpeeds(int(toks[1]), int(toks[2]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
+            # Change la vitesse du côté gauche des moteurs.
             elif toks[0] == "setl":
                 self.robot.setSpeedLeft(int(toks[1]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
             elif toks[0] == "setr":
                 self.robot.setSpeedRight(int(toks[1]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
 
         # Retourne la réponse.
         return answer

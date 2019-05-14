@@ -9,26 +9,37 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    	<title>Client</title>
-
+    	<title>ISN - Client</title>
     	<meta charset="UTF-8"/>
+
+    	<link href="reset.css" rel="stylesheet">
+    	<link href="index.css" rel="stylesheet">
 	</head>
 	<body>
-		<style>
-    		@import url('reset.css');
-    		@import url('index.css');
-		</style>
-		<div>
+		<div id="div-main">
 			<h1 id="text-server-state">En attente du serveur...</h1>
 
 			<div id="div-message">
-				<form>
+				<form id="form-message">
 					<a>Instruction:<br/></a>
-					<input type="text" id="message" placeholder="Votre instruction..."/>
-					<button type="button" onclick="sendMessage()">Envoyer</button>
+					<input id="input-message" type="text" placeholder="Exemple: set 16 16" onkeypress="inputMessageOnKeyPress(event)" />
+					<button id="button-send" type="button" onclick="buttonSendOnClick()">Envoyer</button>
 				</form>
-				<span id="answer">Réponse: </span>
-			<div/>
+				<div id="div-move-buttons">
+					<div>
+						<button id="button-up" class="bouton" style="margin-left: 104px; margin-bottom: 4px;">Haut</button>
+					</div>
+					<div>
+						<button id="button-left" class="bouton">Gauche</button>
+						<button id="button-bottom" class="bouton">Bas</button>
+						<button id="button-right" class="bouton">Droite</button>
+					</div>
+				</div>
+				<span id="text-answer">Réponse: </span>
+                <div>
+                    <img src="http://192.168.1.33:4445/?action=stream"/>
+                </div>
+			</div>
 		</div>
 
 		<script src="index.js"></script>

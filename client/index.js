@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------- //
+﻿// ---------------------------------------------------------------- //
 //                                                                  //
 //  - index.js                                                      //
 //                                                                  //
@@ -6,117 +6,101 @@
 //                                                                  //
 // ---------------------------------------------------------------- //
 
-console.log("[CLIENT] Client lancé.")
-
+// Variables globales.
 var webSocket = null;
 var connected = false;
 
-// Fonction effectué avant que la page soit déchargé.
-window.onbeforeunload = function()
-{
-    if (connected)
-    {
-        webSocket.send("disconnect");
-        webSocket.close();
-    }
-};
-
 // Connecte le client au serveur.
-function connect(domain)
-{
+function connect(domain) {
     var numberOfErrors = 0;
 
-    var TryConnecting = function(domain)
-    {
+    var tryToConnect = function(domain) {
         webSocket = new WebSocket(domain);
 
-        webSocket.onerror = function()
-        {
+        webSocket.onerror = function() {
             numberOfErrors++;
 
             console.log("[CLIENT] En attente du serveur...");
 
-            if (numberOfErrors > 10)
-            {
+            if (numberOfErrors > 15) {
                 console.log("[CLIENT] Impossible de connecter le serveur.");
-            }
-            else
-            {
-                setTimeout(function()
-                {
-                    TryConnecting(domain);
+            } else {
+                setTimeout(function() {
+                    tryToConnect(domain);
                 }, 100);
             }
         };
 
-        webSocket.onopen = function()
-        {
-            console.log("[CLIENT] Connexion établie.");
-
-            connected = true;
-
-            document.getElementById("text-server-state").innerHTML = "Serveur connecté"
+        webSocket.onopen = function() {
+            changeState("connected");
         };
 
         webSocket.onmessage = function(event)
         {
             console.log("[CLIENT] Réponse reçu: " + event.data);
-            document.getElementById("answer").innerHTML = "Réponse: " + event.data;
 
-            if (event.data == "disconnect" || event.data == "shutdown")
-            {
-                console.log("[CLIENT] Fin de la connexion.");
-
-                webSocket.close();
-
-                connected = false;
-
-                document.getElementById("text-server-state").innerHTML = "Serveur déconnecté";
-
-                var answer = "Extinction...";
-
-                if (message == "disconnect")
-                    answer = "Déconnexion..."
-
-                document.getElementById("answer").innerHTML = "Réponse: " + answer;
+            if (event.data == "disconnect" || event.data == "shutdown") {
+                changeState(event.data);
+            } else {
+                document.getElementById("text-answer").innerHTML = "Réponse: " + event.data;
             }
         }
     };
 
-    TryConnecting(domain);
+    tryToConnect(domain);
 }
 
-// Déconnecte le client du serveur (en envoyant un mesage de déconnexion au serveur).
-function disconnect()
-{
-    console.log("[CLIENT] Fin de la connexion.");
+// Change l'état actuel de connexion du site.
+// message: "connected" ou "disconnected" ou "shutdown".
+function changeState(message) {
+    if (message == "connected") {
+        console.log("[CLIENT] Connexion établie.");
 
-    webSocket.close();
+        connected = true;
+        document.getElementById("text-server-state").innerHTML = "Serveur connecté";
+    } else {
+        console.log("[CLIENT] Fin de la connexion.");
 
-    connected = false;
+        webSocket.close();
 
-    document.getElementById("text-server-state").innerHTML = "Serveur déconnecté";
-
-    var answer = "Extinction...";
-
-    if (message == "disconnect")
-        answer = "Déconnexion..."
-
-    document.getElementById("answer").innerHTML = "Réponse: " + answer;
-}
-
-// Envoi un message au serveur.
-function sendMessage()
-{
-    var message = document.getElementById("message").value;
-
-    if (connected && message != "")
-    {
-        webSocket.send(message);
-
-        if (message == "disconnect" || message == "shutdown")
-            disconnect();
+        connected = false;
+        document.getElementById("text-server-state").innerHTML = "Serveur déconnecté";
+        document.getElementById("text-answer").innerHTML = "Réponse: " + (message == "disconnect" ? "Déconnexion..." : "Extinction...");
     }
 }
 
-connect("ws://192.168.1.33:4444");
+// Évènement appelé avant que la page soit déchargé.
+window.onbeforeunload = function() {
+    if (connected) {
+        webSocket.send("disconnect");
+        webSocket.close();
+    }
+};
+
+// Évènement appelé lorsque l'élément "button-send" est cliqué.
+function buttonSendOnClick() {
+    // Prend la valeur de l'élément "input-message".
+    var message = document.getElementById("input-message").value;
+
+    if (connected && message != "") {
+        webSocket.send(message);
+
+        if (message == "disconnect" || message == "shutdown") {
+            changeState(message);
+        }
+    }
+}
+
+// Évènement appelé lorsqu'une touche est appuyé dans l'élément "input-message".
+function inputMessageOnKeyPress(event) {
+    // Si c'est la touché entrée (keyCode = 13):
+    if (event.keyCode == 13) {
+        // On empêche l'évènement par défaut (qui recharge la page).
+        event.preventDefault();
+        // On envoie le message.
+        buttonSendOnClick();
+    }
+}
+
+// Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
+connect("ws://192.168.43.195:4444");

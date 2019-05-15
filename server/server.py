@@ -16,6 +16,7 @@ import re
 import select
 import platform
 import io
+import itertools
 from hashlib import sha1
 from base64 import b64encode
 
@@ -30,21 +31,23 @@ class Client:
 
     # Constructeur de la classe.
     def __init__(self, connection, address):
-        # Défini les propriétés du client.
+        # Défini les propriétés de la classe.
         self.connection = connection
         self.address = address
         self.isConnected = True
 
 # Classe du serveur.
 class Server(threading.Thread):
-    # Défini l'état du serveur (en fonctionnement ou en extinction).
+    # État du serveur (en fonctionnement ou en extinction).
     isRunning = False
-    # Défini si le serveur est connecté à au moins un client?
+    # État de la connexion du serveur (possède au moins un client ou non).
     isConnected = False
     # Liste des clients actuellement connectés.
     currentClients = []
-    # Le moteur du robot.
-    robot = None
+    # Gestion des moteurs du robot.
+    robotEngine = None
+    # Gestion de la caméra du robot.
+    robotCamera = None
 
     # Démarre le serveur.
     def run(self):
@@ -55,11 +58,15 @@ class Server(threading.Thread):
 
         if "raspberrypi" in platform.uname():
             # Importe le module moteur.
-            import robot
-            # Crée l'instance de la classe gérant le moteur du robot.
-            self.robot = robot.Robot()
-            # Démarre cette instance (sous un thread).
-            self.robot.start()
+            import robotEngine, robotCamera
+            # Crée l'instance de la classe gérant les moteurs du robot.
+            self.robotEngine = robotEngine.RobotEngine()
+            # Crée l'instance de la classe gérant la caméra du robot.
+            self.robotCamera = robotCamera.RobotCamera()
+            # Démarre l'instance de robotEngine (un thread).
+            self.robotEngine.start()
+            # Démarre l'instance de robotCamera (un thread).
+            self.robotCamera.start()
         # Crée le socket.
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Indique au socket de réutiliser la connection si elle est déjà utilisé.
@@ -149,9 +156,9 @@ class Server(threading.Thread):
         # Ferme le socket du serveur.
         self.connection.close()
         # Si il y a des moteurs:
-        if self.robot != None:
+        if self.robotEngine != None:
             # Dit aux moteurs de s'arrêter.
-            self.robot.stop()
+            self.robotEngine.stop()
 
     # Connecte un client à l'aide du protocole WebSocket.
     # Voir: https://tools.ietf.org/html/rfc6455#section-4
@@ -194,50 +201,42 @@ class Server(threading.Thread):
 
     # Décode un message (selon l'encodage du protocole WebSocket).
     # Voir: https://tools.ietf.org/html/rfc6455#section-5
-    # TODO: À mieux documenter.
     def decodeMessage(self, message):
-        # Effectue une opération bitwise AND
-        # entre le 1er byte du message et 127.
-        # Ce qui retourne la taille du paquet.
-        payload_length = message[1] & 127
-        # Défini les bytes du mask du message
-        # (ce qui est avant le message, 2 bytes par défaut).
-        index_mask = 2
+        # Crée un stream de lecture du message.
+        buffer = io.BytesIO(message)
+        # Lis le header du message (dont on ne s'intéresse pas ici).
+        # (contenu sur le premier byte)
+        data = buffer.read1(1)
+        # Lis la longueur du message.
+        # (contenu sur le second byte)
+        data = buffer.read1(1)
+        # Obtient le nombre de byte à lire pour le message (par conversion de type).
+        length, = struct.unpack("!B", data)
+        # Effectue une opération AND sur la longueur.
+        length = length & 127
 
-        # Si la taille du paquet est 126:
-        if payload_length == 126:
-            # Le mask est de 2 bytes en plus.
-            index_mask = 4
-        # Si la taille du paquet est 127:
-        elif payload_length == 127:
-            # Le mask est de 8 bytes en plus.
-            index_mask = 10
+        # Si la longueur est égal à 126:
+        if length == 126:
+            # Lis les deux prochains bytes.
+            data = buffer.read1(2)
+            # Obtient le nombre de byte à lire pour le message (par conversion de type).
+            length, = struct.unpack("!H", data)
+        # Si la longueur est égal à 127:
+        elif length == 127:
+            # Lis les 8 prochains bytes.
+            data = buffer.read1(8)
+            # Obtient le nombre de byte à lire pour le message (par conversion de type).
+            length, = struct.unpack("!Q", data)
 
-        # Défini le mask.
-        masks = [m for m in message[index_mask: index_mask + 4]]
-        # Index du premier byte de donnée.
-        indexFirstDataByte = index_mask + 4
-        # Liste des caractères décodés.
-        decodedChars = []
-        # Itérateur à utiliser pour la boucle suivante
-        # d'abord initialisé avec la valeur du premier byte de donnée.
-        i = indexFirstDataByte
-        # Second itérateur utilisé dans la boucle suivante.
-        j = 0
+        # Lis le mask des données.
+        mask = buffer.read1(4)
+        # Lis le message.
+        data = buffer.read1(length)
+        # Obtient les données en appliquant le mask dessus.
+        data = bytes(b ^ m for b, m in zip(data, itertools.cycle(mask)))
 
-        # Tant qu'il reste un caractère à décoder:
-        while i < len(message):
-            # Décode un caractère et l'ajoute à la liste des caractères.
-            decodedChars.append(chr((message[i] ^ masks[j % 4])))
-            # Incrémente les variable itéré.
-            i += 1
-            j += 1
-
-        # Crée le message décodé en joignant tout
-        # les caractères décodés.
-        decodedMessage = ''.join(decodedChars)
-
-        return decodedMessage
+        # Retourne le message décodé.
+        return data.decode("utf-8")
 
     # Encode un message (selon l'encodage du protocole WebSocket).
     # Voir: https://tools.ietf.org/html/rfc6455#section-5
@@ -307,18 +306,18 @@ class Server(threading.Thread):
             # Défini le serveur comme en cours d'extinction.
             self.isRunning = False
         # Si le serveur tourne sur un robot:
-        elif self.robot != None:
+        elif self.robotEngine != None:
             # Change la vitesse des moteurs.
             if toks[0] == "set":
-                self.robot.setSpeeds(int(toks[1]), int(toks[2]))
-                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
+                self.robotEngine.setSpeeds(int(toks[1]), int(toks[2]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
             # Change la vitesse du côté gauche des moteurs.
             elif toks[0] == "setl":
-                self.robot.setSpeedLeft(int(toks[1]))
-                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
+                self.robotEngine.setSpeedLeft(int(toks[1]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
             elif toks[0] == "setr":
-                self.robot.setSpeedRight(int(toks[1]))
-                answer = "Vitesse actuelle du robot: (" + str(self.robot.speeds[0]) + ", " + str(self.robot.speeds[1]) + ")"
+                self.robotEngine.setSpeedRight(int(toks[1]))
+                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
 
         # Retourne la réponse.
         return answer

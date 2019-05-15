@@ -103,4 +103,4 @@ function inputMessageOnKeyPress(event) {
 }
 
 // Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
-connect("ws://192.168.43.195:4444");
+connect("ws://192.168.1.33:4444");

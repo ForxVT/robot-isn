@@ -1,8 +1,8 @@
 # ---------------------------------------------------------------- #
 #                                                                  #
-#  - robot.py                                                      #
+#  - robot_engine.py                                               #
 #                                                                  #
-#  Contient la classe faisant fonctionner le robot.                #
+#  Contient la classe faisant fonctionner les moteurs du robot.    #
 #                                                                  #
 # ---------------------------------------------------------------- #
 
@@ -10,12 +10,14 @@
 import RPi.GPIO as GPIO
 import time, threading
 
-# Classe de la gestion du robot.
-class Robot(threading.Thread):
+# Classe de la gestion des moteurs du robot.
+class RobotEngine(threading.Thread):
     # Constructeur de la classe.
     def __init__(self, steps = 2, tick = 0.01):
+        # Appel du contructeur de la classe mère.
         threading.Thread.__init__(self)
 
+        # Défini les propriétés de la classe.
         self.steps = steps
         self.tick = tick
         self.speeds = [0, 0]
@@ -36,7 +38,7 @@ class Robot(threading.Thread):
         GPIO.setmode(GPIO.BOARD)
 
         for pin in self.pins:
-            GPIO.setup(self.pins[pin], GPIO.OUT, initial=GPIO.LOW)
+            GPIO.setup(self.pins[pin], GPIO.OUT, initial = GPIO.LOW)
             
     # Éteins les ports du robot.
     def shutdown(self):
@@ -45,16 +47,22 @@ class Robot(threading.Thread):
 
         GPIO.cleanup()
     
-    # Démarre le thread du robot (automatiquement appelé par start()).
+    # Démarre le thread (automatiquement appelé par start()).
     def run(self):
+        # Appel de la fonction init de la classe.
         self.init()
 
+        # Indique que l'instance est en fonctionnement.
         self.running = True
+        # Prend le temps actuel.
         t0 = time.clock()
 
+        # Tant que l'instance est en fonctionnement:
         while self.running:
-            self.refreshSpeeds(int((time.clock()-t0)/self.tick) % self.steps)
+            # Rafraichis la vitesse des moteurs à un intervalle donné.
+            self.refreshSpeeds(int((time.clock() - t0) / self.tick) % self.steps)
 
+        # Appel de la fonction shutdown de la classe.
         self.shutdown()
     
     # Rafraichis la vitesse des moteurs du robot.
@@ -86,19 +94,22 @@ class Robot(threading.Thread):
     
     # Définie la vitesse des côtés gauches et droits du robot.
     def setSpeeds(self, left, right):
+        # Change la vitesse des deux côtés.
         self.speeds = [left, right]
 
     # Définie la vitesse du côté gauche du moteur.
     def setSpeedLeft(self, speed):
+        # Change la vitesse côté gauche.
         self.speeds[0] = speed;
 
     # Définie la vitesse du côté droit du moteur.
     def setSpeedRight(self, speed):
+        # Change la vitesse côté droit.
         self.speeds[1] = speed;
     
     # Stop le thread du robot.
     def stop(self):
+        # Indique au thread de se terminer.
         self.running = False
+        # Attend la fin du thread.
         self.join()
-
-

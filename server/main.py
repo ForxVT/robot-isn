@@ -12,7 +12,6 @@ import server
 # Démarre le programme (méthode main).
 if __name__ == "__main__":
     print("===--------------------- SERVEUR ---------------------===")
-
     print("[MAIN] Démarrage du programme...")
     print("[MAIN] Pour quitter, appuyez sur Ctrl+C.")
 
@@ -22,8 +21,7 @@ if __name__ == "__main__":
     # Permet de capturer les interruptions clavier
     # provenant du thread serveur.
     try:
-        # Permet de terminer le thread serveur si le processus
-        # principal est aussi terminé.
+        # Autorise à terminer ce thread si le thread principal (celui-ci) est terminé.
         server.daemon = True
 
         # Démarre le serveur.

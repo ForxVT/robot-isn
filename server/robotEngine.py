@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------- #
 #                                                                  #
-#  - robot_engine.py                                               #
+#  - robotEngine.py                                                #
 #                                                                  #
 #  Contient la classe faisant fonctionner les moteurs du robot.    #
 #                                                                  #

@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------- #
 #                                                                  #
-#  - robot_camera.py                                               #
+#  - robotCamera.py                                                #
 #                                                                  #
 #  Contient la classe faisant fonctionner la caméra du robot.      #
 #                                                                  #

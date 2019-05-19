@@ -1,0 +1,70 @@
+/* ---------------------------------------------------------------- */
+/*                                                                  */
+/*  - index.css                                                     */
+/*                                                                  */
+/*  Style principale du site web.                                   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6, p, a, span, li {
+	font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+    text-decoration: none;
+    color: #0D1A26;
+}
+
+h1 {
+	text-align: center;
+	font-weight: 700;
+	font-size: 21px;
+}
+
+form {
+	text-align: left;
+}
+
+.header-container
+{
+    box-shadow: 0 2px 8px #f0f1f2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-container-left
+{
+    text-align: center;
+    flex-basis: 20em;
+}
+
+.header-container-left > a
+{
+    line-height: 60px;
+}
+
+#title
+{
+    font-size: 18px;
+    font-weight: 500;
+    color: #0D1A26;
+    text-decoration: none;
+    color: #0D1A26;
+}
+
+#title:hover
+{
+    transition: color 0.3s;
+    color: #1890FF;
+}
+
+#text-server-state {
+	margin: 20px 0px 20px 0px;
+}
+
+#div-message: {
+  display: inline;
+  margin: 0 1em 0 1em;
+  width: 30%;
+}
+
+.bouton {
+	width: 100px;
+}

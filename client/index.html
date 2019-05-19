@@ -10,42 +10,44 @@
 <html>
     <!-- En-tête du site. -->
 	<head>
-    	<title>Client</title>
+    	<title>Robot - Client</title>
 
     	<meta charset="UTF-8"/>
 
-        <link rel="icon" href="favicon.ico" />
-    	<link href="reset.css" rel="stylesheet">
-    	<link href="index.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="assets/styles/reset.css">
+        <link rel="stylesheet" type="text/css" href="assets/styles/base.css">
 	</head>
+
     <!-- Contenu du site -->
 	<body>
-		<div id="div-main">
-			<h1 id="text-server-state">En attente du serveur...</h1>
-
-			<div id="div-message">
-				<form id="form-message">
-					<a>Instruction:<br/></a>
-					<input id="input-message" type="text" placeholder="Exemple: set 16 16" onkeypress="inputMessageOnKeyPress(event)" />
-					<button id="button-send" type="button" onclick="buttonSendOnClick()">Envoyer</button>
-				</form>
-				<div id="div-move-buttons">
-					<div>
-						<button id="button-up" class="bouton" style="margin-left: 104px; margin-bottom: 4px;">Haut</button>
-					</div>
-					<div>
-						<button id="button-left" class="bouton">Gauche</button>
-						<button id="button-bottom" class="bouton">Bas</button>
-						<button id="button-right" class="bouton">Droite</button>
-					</div>
+        <div class="header-container">
+            <div class="header-container-left">
+                <a href="index.html" id="title">Robot - Client</a>
+            </div>
+        </div>
+		<h1 id="text-server-state">En attente du serveur...</h1>
+		<div id="div-message">
+			<form id="form-message">
+				<a>Instruction:<br/></a>
+				<input id="input-message" type="text" placeholder="Exemple: set 16 16" onkeypress="inputMessageOnKeyPress(event)" />
+				<button id="button-send" type="button" onclick="buttonSendOnClick()">Envoyer</button>
+			</form>
+			<div id="div-move-buttons">
+				<div>
+					<button id="button-up" class="bouton" style="margin-left: 104px; margin-bottom: 4px;">Haut</button>
 				</div>
-				<span id="text-answer">Réponse: </span>
-                <div>
-                    <img src="http://192.168.1.33:4445/"/>
-                </div>
+				<div>
+					<button id="button-left" class="bouton">Gauche</button>
+					<button id="button-bottom" class="bouton">Bas</button>
+					<button id="button-right" class="bouton">Droite</button>
+				</div>
 			</div>
+			<span id="text-answer">Réponse: </span>
+            <div>
+                <img src="http://192.168.1.33:4445/"/>
+            </div>
 		</div>
 
-		<script src="index.js"></script>
+		<script src="assets/scripts/index.js"></script>
 	</body>
 </html>

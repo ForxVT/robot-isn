@@ -1,1 +1,8 @@
-robot-isn
+Le projet d'ISN est composé de trois dossiers:
+
+- Le dossier "dossier-projet" contient un site HTML expliquant ce qu'est le projet et comment il fonctionne.
+  Ouvrir "index.html"
+- Le dossier "serveur" contient le code Python du serveur qui doit être exécuté sur le robot pour le connecter à internet.
+  Ouvrir "main.py"
+- Le dossier "client" content le site HTML avec son code JavaScript qui permet de contrôler le robot à distance.
+  Ouvrir "index.html"

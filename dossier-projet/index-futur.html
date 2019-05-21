@@ -1,0 +1,77 @@
+<!-- ---------------------------------------------------------------- -->
+<!--                                                                  -->
+<!--  - index-futur.html                                              -->
+<!--                                                                  -->
+<!--  Interface du site web.                                          -->
+<!--                                                                  -->
+<!-- ---------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html>
+    <!-- En-tête du site. -->
+	<head>
+		<title>Robot - Dossier-projet</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" type="text/css" href="assets/styles/reset.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/base.css">
+	</head>
+
+    <!-- Contenu du site -->
+	<body>
+		<div class="header-container">
+			<div class="header-container-left">
+				<a href="index.html" id="title">Robot - Dossier-projet</a>
+			</div>
+		</div>
+		<div class="main-container">
+			<div class="main-container-left">
+				<div class="main-menu">
+					<ul>
+						<li><a href="index.html">Quel est notre projet ?</a></li>
+						<li><a href="index-robot.html">Comment fonctionne le robot ?</a></li>
+						<li><a href="index-serveur.html">Comment fonctionne le serveur ?</a></li>
+						<li><a href="index-client.html">Comment fonctionne le client ?</a></li>
+                        <li><a href="index-futur.html" id="main-menu-selected">Comment améliorer le projet ?</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="main-container-middle">
+				<div class="page">
+					<article>
+						<h1>Comment améliorer le projet ?</h1>
+						<section id="intro">
+							<h2>Introduction</h2>
+							<p>En l’état actuel, le projet permet donc d’obtenir un robot contrôlable à distance, en pouvant lui envoyer des instructions, en voyant ou il est grâce au flux vidéo et en le déplaçant.</p>
+						</section>
+						<section id="futur1">
+							<h2>Amélioration du code</h2>
+							<p>Le côté serveur et client du projet possédait un certain nombre de contraintes, n’empêchant pas d’avoir un projet fonctionnel, mais permettant de pouvoir le perfectionner : flux vidéo trop lent, code python trop lent, …Le projet aurait donc pu être perfectionner par les moyens suivants :</p>
+							<p>- Remplacer le code en Python par du code en C ou C++ de manière à obtenir un code bien plus rapide à exécuter pour une machine possédant une puissance assez faible.</p>
+							<p>- Rechercherdes techniques plus optimisées pour l’envoi du flux vidéo (afin de pouvoir augmenter la qualité du flux, qui est actuellement de 24 images par seconde à une résolution haute définition).</p>
+						</section>
+						<section id="futur2">
+							<h2>Amélioration en mécanique</h2>
+							<p>Ensuite, le côté mécanique du robot est compliqué à développer dû à un certain nombre de contraintes : la nécessité d’un certains nombres de pièces, de la complexité de la réalisation d’un robot ayant plusieurs systèmes (caméra, chenilles, …), fonctionnement sans fil (par batterie), …<br/>Mais nous avions quand même eu des idées pour le développer de manière plus complexe (si le temps nous l’avait permis) :</p>
+							<p>- Obtenir un Raspberry Pi plus récent (permettant grâce au Wi-fi 5Ghz une connexion plus rapide).</p>
+							<p>- Intégrer des servomoteurs pour pouvoir contrôler une partie intégrante du robot (comme un bras, permettant d’attraper des objets).</p>
+							<p>- Intégrer des capteurs ultrasons, pour pouvoir obtenir sur le client une carte des obstacles autour du robot, pour avoir en plus du flux vidéo de la caméra une visibilité intéressante de ce qui entoure le robot.</p>
+							<p>- Intégrer un système de reconnaissance vocale avec un micro (ainsi qu’un haut-parleur) pour pouvoir donner des instructions par la voix au robot (il existe déjà des projets permettant de simplifier le processus de création d’un assistant vocale, comme Jarvis.sh, ou alors cela aurait été possible à l’aide de procédé comme le « text-to-speech » et « speech-to-text »).</p>
+							<p>- Améliorer le style du robot à l’aide de partie imprimé en 3D.</p>
+						</section>
+					</article>
+				</div>
+			</div>
+			<div class="main-container-right">
+				<div class="part-menu">
+					<ul>
+						<li><a href="#intro" title="Introduction">Introduction</a></li>
+						<li><a href="#futur1" title="Amélioration du code">Amélioration du code</a></li>
+						<li><a href="#futur2" title="Amélioration en mécanique">Amélioration en mécanique</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

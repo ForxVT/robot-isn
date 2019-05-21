@@ -1,0 +1,73 @@
+<!-- ---------------------------------------------------------------- -->
+<!--                                                                  -->
+<!--  - index-client.html                                             -->
+<!--                                                                  -->
+<!--  Interface du site web.                                          -->
+<!--                                                                  -->
+<!-- ---------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html>
+    <!-- En-tête du site. -->
+	<head>
+		<title>Robot - Dossier-projet</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" type="text/css" href="assets/styles/reset.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/base.css">
+	</head>
+
+    <!-- Contenu du site -->
+	<body>
+		<div class="header-container">
+			<div class="header-container-left">
+				<a href="index.html" id="title">Robot - Dossier-projet</a>
+			</div>
+		</div>
+		<div class="main-container">
+			<div class="main-container-left">
+				<div class="main-menu">
+					<ul>
+						<li><a href="index.html">Quel est notre projet ?</a></li>
+						<li><a href="index-robot.html">Comment fonctionne le robot ?</a></li>
+						<li><a href="index-serveur.html">Comment fonctionne le serveur ?</a></li>
+						<li><a href="index-client.html" id="main-menu-selected">Comment fonctionne le client ?</a></li>
+                        <li><a href="index-futur.html">Comment améliorer le projet ?</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="main-container-middle">
+				<div class="page">
+					<article>
+						<h1>Comment fonctionne le client ?</h1>
+						<section id="intro">
+							<h2>Introduction</h2>
+							<p>Le client est un site web qui permet de communiquer avec un serveur de manière à envoyer des instructions ou recevoir des données du serveur (le code du client est donc en HTML/CSS et Javascript).</p>
+						</section>
+						<section id="client1">
+							<h2>Connexion avec le serveur</h2>
+							<p>La connexion du client avec le serveur est simple, il va d’abord tenter de se connecter un certain nombre de fois au serveur (15 fois), s’il n’y a pas de réponse au bout des 15 fois, il abandonne (auquel cas il faudra relancer la page pour retenter les connexions, cela permet d’éviter de faire boguer le client si les tentatives sont effectuées à l’infini).</p>
+						</section>
+						<section id="client2">
+							<h2>Interaction avec le serveur</h2>
+							<p>Une fois connecté, il sera possible d’envoyer des instructions au serveur (le flux vidéo ne dépend pas de cette connexion, mais sera lui aussi possible seulement si le serveur est lancé).</p>
+							<p>Le client contient donc tout d’abord une entrée de texte, qui pourras être utiliser pour contrôler le robot à l’aide de commandes (voir la liste des commandes sur le client).</p>
+							<p>Il y a ensuite 4 boutons (gauche, haut, bas, droite) qui permettent de déplacer directement le robot dans la direction voulu sans avoir à utiliser des commandes (cela va influer sur la vitesse de ses différents moteurs).</br>Ensuite, il y a une animation qui permet de voir l’état de déplacement du robot ainsi que son sens.</p>
+							<p>Finalement, il y a aussi une « image » ou est affiché le flux vidéo, qui est actualisé automatiquement par le navigateur qui va faire des requêtes de connexion au serveur.</p>
+						</section>
+					</article>
+				</div>
+			</div>
+			<div class="main-container-right">
+				<div class="part-menu">
+					<ul>
+						<li><a href="#intro" title="Introduction">Introduction</a></li>
+						<li><a href="#client1" title="Connexion avec le serveur">Connexion avec le serveur</a></li>
+						<li><a href="#client2" title="Interaction avec le serveur">Interaction avec le serveur</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -40,7 +40,7 @@ class RobotEngine(threading.Thread):
         for pin in self.pins:
             GPIO.setup(self.pins[pin], GPIO.OUT, initial = GPIO.LOW)
             
-    # Éteins les ports du robot.
+    # Éteints les ports du robot.
     def shutdown(self):
         for pin in self.pins:
             GPIO.output(self.pins[pin], GPIO.LOW)

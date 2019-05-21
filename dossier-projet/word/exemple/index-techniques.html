@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Le guide du téléchargement</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="data/styles/reset.css">
+		<link rel="stylesheet" type="text/css" href="data/styles/base.css">
+	</head>
+
+	<body>
+		<div class="header-container">
+			<div class="header-container-left">
+				<a href="index.html" id="title">Le guide du téléchargement</a>
+			</div>
+			<div class="header-container-right">
+				<div class="header-menu">
+					<ul>
+						<li><a href="index.html" id="header-menu-selected">Le guide</a></li>
+						<li><a href="about.html">À propos du guide</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main-container">
+			<div class="main-container-left">
+				<div class="main-menu">
+					<ul>
+						<li><a href="index.html">Introduction</a></li>
+						<li><a href="index-techniques.html" id="main-menu-selected">Les techniques de téléchargement</a></li>
+						<li><a href="index-legalite.html">La légalité du téléchargement</a></li>
+						<li><a href="index-bibliographie.html">Bibliographie</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="main-container-middle">
+				<div class="page">
+					<article>
+						<section>
+							<h1>Les techniques de téléchargement</h1>
+							<p>Le téléchargement est un acte qui peut-être effectué d'un certain nombre de manières différentes, bien sûr, toutes ne sont pas très connus, et leurs principes sont tous très différents. Ici, nous allons parler de quatre grands différents types de téléchargement qui sont les plus utilisés par une majorité de personnes.</p>
+						</section>
+						<section id="ddl">
+							<h2>Le téléchargement direct</h2>
+							<p>Le téléchargement direct est une technique aussi connue sous le nom « direct download » ou « DDL » est de loin la plus répandue et la plus utilisée depuis très longtemps sur internet. Son principe est très simple à appréhender, il consiste à déposer un fichier sur l'infrastructure d'un site web (généralement côté serveur) et de le rendre disponible aux utilisateurs à l'aide d'un simple lien qui redirigera directement le navigateur de l'utilisateur vers le fichier en question, qui sera donc ensuite directement téléchargé. L'échange est donc très simple, une requête est envoyé du client (utilisateur) vers le serveur (site web) et une réponse contenant le fichier sera donc transmise.</p>
+							<p>Ce procédé est plus répandu d'un point de vue légal qu'illégal, car c'est sûrement le procédé de base de partage de fichiers actuellement, toute personne ayant déjà téléchargé des fichiers sur internet a déjà eu affaire à du téléchargement direct, avec par exemple les fichiers joints d'e-mails, ou les fichiers mis en ligne dans les clouds.</p>
+							<div class="image-container">
+								<img src="test.png"/>
+							</div>
+							<h6><a href="https://fr.wikipedia.org/wiki/Pair_%C3%A0_pair#/media/File:Server-based-network.svg">Schéma d'un réseau de type client-serveur (exemple du téléchargement direct).</a></h6>
+						</section>
+						<section id="ptp">
+							<h2>Le téléchargement en pair à pair</h2>
+							<p>Le téléchargement en pair à pair est une autre technique qui même si le nom ne parlera sûrement pas à la plupart des utilisateurs l'utilisant est très répandue, aussi connu sous le nom « peer-to-peer » ou « P2P ». Son principe est très différent du téléchargement direct, en réalité, dans ce procédé, un utilisateur ne fait pas seulement office de client, mais aussi en quelque sorte de serveur. C'est-à-dire que les utilisateurs vont être liés entre eux et donc formé une sorte de toile, autrement dit, un réseau, ou chaque utilisateur va correspondre à un « noeud » (ou « pair »), et aider à transmettre un fichier. Pour être plus précis et rendre le concept plus compréhensible, il faut d'abord comprendre que les utilisateurs ne vont pas utiliser leur vitesse de téléchargement de manière à acquérir le fichier (débit descendant) mais vont à la place transmettre une vitesse de téléchargement aux autres utilisateurs (débit ascendant), qui elle va servir aux autres utilisateurs qui vont recevoir ce débit, de télécharger les fichiers (qui doivent donc obligatoirement être déjà obtenu par au moins un noeud du réseau).</p>
+							<p>Ce système est donc bien plus avancé que le téléchargement direct, et la plupart des utilisateurs qui s'en servent ne se rendent sûrement pas compte des problèmes de sécurité que cela peut amener ou de la manière dont sa fonctionne. Mais cela n'empêche pas ce procédé d'être très répandu aujourd'hui, dont énormément sur les téléchargements illégaux, mais il reste utilisé par des téléchargements légaux bien entendu, certaines distributions Linux (comme Arch Linux ou Ubuntu) permettent d'ailleurs de télécharger leur distribution depuis un torrent (fichier utilisant le protocole BitTorrent, fonctionnant sur le transfert de données en pair à pair).</p>
+							<div class="image-container">
+								<img src="data/images/telechargement-p2p.png" width="256"/>
+							</div>
+							<h6><a href="https://fr.wikipedia.org/wiki/Pair_%C3%A0_pair#/media/File:P2P-network.svg">Schéma d'un réseau avec des noeuds interconnectés (exemple du téléchargement en pair à pair).</a></h6>
+						</section>
+						<section id="usenet">
+							<h2>L'usenet</h2>
+							<p>L'usenet est une manière de télécharger, qui n'est plus très actuel mais qui existe toujours, et est donc actuellement assez peu connu mais qui était assez utilisé il y a quelques décennies. Ce procédé se rapproche d'une certaine manière du téléchargement en pair à pair, car une sorte de réseau est aussi formé. À l'origine, l'idée de l'usenet est de réunir plusieurs serveurs entre eux et donc de mettre leurs données en parallèle, ensuite, des clients sont connectés à un serveur spécifique mais peuvent donc profiter d'un accès aux données de tous les serveurs. L'usenet repose sur l'existence de groupes (aussi appelé « newsgroup »), auquel l'utilisateur peut avoir la permission d'accéder, un groupe est lui-même composé d'articles (une « news »), et des logiciels/interfaces web permettent de représenter ces groupes et articles sous forme de liste (les « newsreaders »). Un ensemble de protocoles permet de stocker et de lire ces articles, qui ont donc souvent été en réalité des fichiers, et donc permis le partage de fichiers et souvent de manière très rapide. Grâce à ces protocoles, l'usenet possède donc des avantages, comme la possibilité d'avoir sa connexion chiffrée en SSL (Secure Sockets Layer, protocole de sécurisation des échanges) et donc pouvoir préserver son anonymat, mais les serveurs usenet étant souvent possédé par des entreprises, l'accès peut en être payant.</p>
+							<p>Ce système est assez complexe à comprendre et aujourd'hui très peu connu. Mais il fut pendant longtemps et reste sûrement toujours d'une certaine manière, un moyen rapide et très efficace de partager de manière anonyme des fichiers, qu'ils soient légaux ou alors illégaux, même si cela en ressort avec la nécessité d'un abonnement payant pour accéder aux fichiers.</p>
+							<div class="image-container">
+								<img src="data/images/telechargement-usenet.png" width="256"/>
+							</div>
+							<h6><a href="https://fr.wikipedia.org/wiki/Usenet#/media/File:Usenet_servers_and_clients.svg">Schéma d'un réseau composé de serveurs interconnectés et eux même connectés à des clients (exemple de l'usenet).</a></h6>
+						</section>
+						<section id="streaming">
+							<h2>Le streaming</h2>
+							<p>Le streaming est aussi un des principe les plus utilisé aujourd'hui pour la lecture de flux vidéo ou audio, et est assez simple à comprendre. Le streaming est différent des autres modes de téléchargement, car l'utilisateur n'aura pas de fichier à la fin sur son disque dur. Le fonctionnement du streaming est le suivant, un serveur s'occupe de mettre en ligne un fichier, des clients (utilisateur) vont demander l'autorisation d'accéder au fichier, et le serveur va l'envoyer sous forme de flux, qui va ensuite être lu par le client en étant mis à la volée dans la mémoire vive de l'ordinateur (et ensuite lu).</p>
+							<p>Ce principe est assez simple, et beaucoup de services payants utilisent ce système, un des plus connus et le plus parlant actuellement sera sûrement Netflix, ou alors la plupart des plateformes de vidéos à la demande. Bien sûr, ce système est comme n'importe quelle autre aussi utilisé de manière illégale pour lire le flux d'un fichier auquel on ne possède aucun droit (vidéo ou audio).</p>
+							<div class="image-container">
+								<img src="data/images/telechargement-streaming.png" width="256"/>
+							</div>
+							<h6><a href="http://yapodcasts.com/highpowerstreaming/?page_id=70">Schéma d'un serveur envoyant un flux à plusieurs clients (exemple du streaming).</a></h6>
+						</section>
+					</article>
+				</div>
+			</div>
+			<div class="main-container-right">
+					<div class="part-menu">
+						<ul>
+							<li><a href="#ddl" title="Le téléchargement direct">Le téléchargement direct</a></li>
+							<li><a href="#ptp" title="Le téléchargement en pair à pair">Le téléchargement en pair à pair</a></li>
+							<li><a href="#usenet" title="L'usenet">L'usenet</a></li>
+							<li><a href="#streaming" title="Le streaming">Le streaming</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

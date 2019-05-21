@@ -167,7 +167,7 @@ class Server(threading.Thread):
         # de connexion ("handshake" du protocole WebSocket).
         connectionData = connection.recv(1024).decode("utf-8")
 
-        # Si les données ne sont pas nul:0000000000000000
+        # Si les données ne sont pas nul:
         if connectionData != "":
             print("[SERVER] Connexion d'un client...");
 

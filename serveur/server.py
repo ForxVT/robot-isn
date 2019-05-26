@@ -289,7 +289,7 @@ class Server(threading.Thread):
         # Sépare le message pour chaque espace.
         # (de manière à pouvoir ajouter des arguments après une instruction).
         toks = message.split(" ")
-        
+
         # Déconnecte le client du serveur.
         # (Pourquoi startwith et non == ?
         # Car il est possible de recevoir un message illisible si un client
@@ -317,18 +317,6 @@ class Server(threading.Thread):
                 answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
             elif toks[0] == "setr":
                 self.robotEngine.setSpeedRight(int(toks[1]))
-                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
-            elif toks[0] == "movf":
-                self.robotEngine.moveForward()
-                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
-            elif toks[0] == "movb":
-                self.robotEngine.moveBackward()
-                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
-            elif toks[0] == "movl":
-                self.robotEngine.moveLeft()
-                answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
-            elif toks[0] == "movr":
-                self.robotEngine.moveRight()
                 answer = "Vitesse actuelle du robot: (" + str(self.robotEngine.speeds[0]) + ", " + str(self.robotEngine.speeds[1]) + ")"
 
         # Retourne la réponse.

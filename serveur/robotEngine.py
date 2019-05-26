@@ -107,20 +107,6 @@ class RobotEngine(threading.Thread):
         # Change la vitesse côté droit.
         self.speeds[1] = speed;
 
-    def moveForward(self):
-        self.speeds[0] += 1
-        self.speeds[1] += 1
-
-    def moveBackward(self):
-        self.speeds[0] -= 1
-        self.speeds[1] -= 1
-
-    def moveLeft(self):
-        self.speeds[0] += 1
-
-    def moveRight(self):
-        self.speeds[1] += 1
-    
     # Stop le thread du robot.
     def stop(self):
         # Indique au thread de se terminer.

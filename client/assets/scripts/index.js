@@ -12,6 +12,8 @@ console.log("[CLIENT] Client lancé.")
 var webSocket = null;
 var connected = false;
 
+var moving = 0;
+
 // Connecte le client au serveur.
 function connect(domain) {
     var numberOfErrors = 0;
@@ -126,27 +128,41 @@ function documentOnKeyPress(event) {
         // Si la touche est Z ou flèche du haut.
         if (event.keyCode == 90 || event.keyCode ==  38) {
             // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("movf");
+            sendMessage("set 16 16");
         }
         // Si la touche est S ou flèche du bas.
         else if (event.keyCode == 83 || event.keyCode == 40) {
             // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("movb");
+            sendMessage("set -16 -16");
         }
         // Si la touche est Q ou flèche de gauche.
         else if (event.keyCode ==  81 || event.keyCode == 37) {
             // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("movl");
+            sendMessage("set 0 16");
         } 
         // Si la touche est D ou flèche de droite.
         else if (event.keyCode == 68 || event.keyCode == 39) {
             // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("movr");
+            sendMessage("set 16 0");
+        }
+        moving++;
+    }
+}
+
+// Évènement gérant les pressions clavier sur toute la fenêtre.
+function documentOnKeyUp(event) {
+    // Si le document en focus n'est pas l'input-message (zone d'écriture):
+    if (document.activeElement !== document.getElementById("input-message")) {
+        moving--;
+
+        if (moving == 0) {
+            sendMessage("set 0 0")
         }
     }
 }
 
 // Ajoute un évènement pour récupérer les pressions clavier sur toute la fenêtre (à l'aide de la fonction précédente).
 window.addEventListener("keydown", documentOnKeyPress, false);
+window.addEventListener("keyup", documentOnKeyUp, false);
 // Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
 connect("192.168.1.17");

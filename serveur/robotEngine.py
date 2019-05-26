@@ -112,8 +112,8 @@ class RobotEngine(threading.Thread):
         self.speeds[1] += 1
 
     def moveBackward(self):
-        self.speeds[0] += 0
-        self.speeds[1] += 0
+        self.speeds[0] -= 1
+        self.speeds[1] -= 1
 
     def moveLeft(self):
         self.speeds[0] += 1

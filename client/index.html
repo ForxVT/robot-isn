@@ -32,12 +32,12 @@
         <div id="div-wrapper">
             <div id="div-buttons">
                 <div>
-                    <button id="button-up" onclick="sendMessage('movf')" style="margin: 4px 0px;">Haut</button>
+                    <button id="button-up" onmousedown="moveRobot('forward')" onmouseup="stopRobot('forward')" style="margin: 4px 0px;">Haut</button>
                 </div>
                 <div>
-                    <button id="button-left" onclick="sendMessage('movl')">Gauche</button>
-                    <button id="button-bottom" onclick="sendMessage('movb')">Bas</button>
-                    <button id="button-right" onclick="sendMessage('movr')">Droite</button>
+                    <button id="button-left" onmousedown="moveRobot('left')" onmouseup="stopRobot('left')">Gauche</button>
+                    <button id="button-bottom" onmousedown="moveRobot('backward')" onmouseup="stopRobot('backward')">Bas</button>
+                    <button id="button-right" onmousedown="moveRobot('right')" onmouseup="stopRobot('right')">Droite</button>
                 </div>
             </div>
         </div>

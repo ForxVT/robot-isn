@@ -11,8 +11,7 @@ console.log("[CLIENT] Client lancé.")
 // Variables globales.
 var webSocket = null;
 var connected = false;
-
-var moving = 0;
+var currentMovements = [];
 
 // Connecte le client au serveur.
 function connect(domain) {
@@ -121,31 +120,56 @@ function inputMessageOnKeyPress(event) {
     }
 }
 
+function moveRobot(side) {
+    if (!currentMovements.includes(side)) {
+        currentMovements.push(side);
+        if (side == "forward") {
+            sendMessage("set 16 16");
+        }
+        else if (side == "backward") {
+            sendMessage("set -16 -16");
+        }
+        else if (side == "left") {
+            sendMessage("set 0 16");
+        }
+        else if (side == "right") {
+            sendMessage("set 16 0");
+        }
+    }
+}
+
+function stopRobot(side) {
+    for(var i = 0; i < currentMovements.length; i++) {
+       if(currentMovements[i] === side) {
+         currentMovements.splice(i, 1); 
+       }
+    }
+
+    if (currentMovements.length == 0) {
+        sendMessage("set 0 0")
+    }
+}
+
 // Évènement gérant les pressions clavier sur toute la fenêtre.
 function documentOnKeyPress(event) {
     // Si le document en focus n'est pas l'input-message (zone d'écriture):
     if (document.activeElement !== document.getElementById("input-message")) {
         // Si la touche est Z ou flèche du haut.
         if (event.keyCode == 90 || event.keyCode ==  38) {
-            // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("set 16 16");
+            moveRobot("forward");
         }
         // Si la touche est S ou flèche du bas.
         else if (event.keyCode == 83 || event.keyCode == 40) {
-            // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("set -16 -16");
+            moveRobot("backward");
         }
         // Si la touche est Q ou flèche de gauche.
         else if (event.keyCode ==  81 || event.keyCode == 37) {
-            // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("set 0 16");
+            moveRobot("left");
         } 
         // Si la touche est D ou flèche de droite.
         else if (event.keyCode == 68 || event.keyCode == 39) {
-            // Envoi au serveur un message pour dire au robot d'aller en avant.
-            sendMessage("set 16 0");
+            moveRobot("right");
         }
-        moving++;
     }
 }
 
@@ -153,10 +177,21 @@ function documentOnKeyPress(event) {
 function documentOnKeyUp(event) {
     // Si le document en focus n'est pas l'input-message (zone d'écriture):
     if (document.activeElement !== document.getElementById("input-message")) {
-        moving--;
-
-        if (moving == 0) {
-            sendMessage("set 0 0")
+        // Si la touche est Z ou flèche du haut.
+        if (event.keyCode == 90 || event.keyCode ==  38) {
+            stopRobot("forward");
+        }
+        // Si la touche est S ou flèche du bas.
+        else if (event.keyCode == 83 || event.keyCode == 40) {
+            stopRobot("backward");
+        }
+        // Si la touche est Q ou flèche de gauche.
+        else if (event.keyCode ==  81 || event.keyCode == 37) {
+            stopRobot("left");
+        } 
+        // Si la touche est D ou flèche de droite.
+        else if (event.keyCode == 68 || event.keyCode == 39) {
+            stopRobot("right");
         }
     }
 }
@@ -164,5 +199,6 @@ function documentOnKeyUp(event) {
 // Ajoute un évènement pour récupérer les pressions clavier sur toute la fenêtre (à l'aide de la fonction précédente).
 window.addEventListener("keydown", documentOnKeyPress, false);
 window.addEventListener("keyup", documentOnKeyUp, false);
+
 // Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
 connect("192.168.1.17");

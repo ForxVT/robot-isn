@@ -145,7 +145,7 @@ function moveRobot(side) {
         else if (side == "right") {
             document.getElementById("img-tank").src = "assets/images/tank-moving.gif";
             document.getElementById("img-tank").setAttribute('style','width: 48px; transform:rotate(90deg)');
-            
+
             sendMessage("set 16 0");
         }
     }
@@ -216,4 +216,4 @@ window.addEventListener("keydown", documentOnKeyPress, false);
 window.addEventListener("keyup", documentOnKeyUp, false);
 
 // Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
-connect("192.168.1.17");
+connect("192.168.43.120");

@@ -123,16 +123,29 @@ function inputMessageOnKeyPress(event) {
 function moveRobot(side) {
     if (!currentMovements.includes(side)) {
         currentMovements.push(side);
+
         if (side == "forward") {
+            document.getElementById("img-tank").src = "assets/images/tank-moving.gif";
+            document.getElementById("img-tank").setAttribute('style','width: 48px; transform:rotate(0deg)');
+
             sendMessage("set 16 16");
         }
         else if (side == "backward") {
+            document.getElementById("img-tank").src = "assets/images/tank-moving.gif";
+            document.getElementById("img-tank").setAttribute('style','width: 48px; transform:rotate(180deg)');
+
             sendMessage("set -16 -16");
         }
         else if (side == "left") {
+            document.getElementById("img-tank").src = "assets/images/tank-moving.gif";
+            document.getElementById("img-tank").setAttribute('style','width: 48px; transform:rotate(-90deg)');
+
             sendMessage("set 0 16");
         }
         else if (side == "right") {
+            document.getElementById("img-tank").src = "assets/images/tank-moving.gif";
+            document.getElementById("img-tank").setAttribute('style','width: 48px; transform:rotate(90deg)');
+            
             sendMessage("set 16 0");
         }
     }
@@ -146,6 +159,8 @@ function stopRobot(side) {
     }
 
     if (currentMovements.length == 0) {
+        document.getElementById("img-tank").src = "assets/images/tank.gif";
+
         sendMessage("set 0 0")
     }
 }

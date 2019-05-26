@@ -80,9 +80,20 @@ form {
     margin: 20px 0px 20px 0px;
 }
 
+#inner {
+    display: inline;
+}
+
 #div-message {
     display: inline-block;
     margin: 20px 0px 20px 0px;
+}
+
+#div-tank {
+    position: fixed;
+    width: 100%;
+    margin-top: -60px;
+    margin-left: 275px;
 }
 
 #img-stream {

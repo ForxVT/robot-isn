@@ -289,6 +289,7 @@ class Server(threading.Thread):
         # Sépare le message pour chaque espace.
         # (de manière à pouvoir ajouter des arguments après une instruction).
         toks = message.split(" ")
+        
         # Déconnecte le client du serveur.
         # (Pourquoi startwith et non == ?
         # Car il est possible de recevoir un message illisible si un client

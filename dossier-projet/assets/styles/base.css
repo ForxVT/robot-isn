@@ -13,6 +13,24 @@ h1, h2, h3, h4, h5, h6, a, p
     color: #0D1A26;
 }
 
+button {
+    color: #FFFFFF;
+    background-color: #1890FF;
+    line-height: 1.499; /* Hauteur inconsistente lorsque la valeur est à 1.5. */
+    border: 1px solid transparent;
+    cursor: pointer;
+    height: 32px;
+    padding: 0px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: all .3s;
+    transition: width 0s;
+}
+
+button:hover {
+    background-color: #40A9FF;
+}
+
 .header-container
 {
     box-shadow: 0 2px 8px #f0f1f2;
@@ -211,4 +229,23 @@ p > a
     transition: color .3s, background-color .15s, border-left-color .3s;
     color: #1890FF;
     border-left-color: #1890FF;
+}
+
+#div-footer
+{
+    margin-top: 96px;
+    border-top: 1px solid #E8E8E8;
+}
+
+.p-footer {
+    line-height: 72px;
+    font-size: 18px;
+}
+
+#text-footer {
+    color: #1890FF;
+}
+
+#text-footer:hover {
+    color: #40A9FF;
 }

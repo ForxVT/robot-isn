@@ -44,16 +44,20 @@ function connect(domain) {
             if (event.data == "disconnect" || event.data == "shutdown") {
                 changeState(event.data);
             } else {
-                document.getElementById("text-answer").innerHTML = "Réponse: " + event.data;
+                document.getElementById("text-answer").innerHTML = event.data;
             }
         }
     };
 
-    tryToConnect(domain);
+    document.getElementById("img-stream").src = "http://" + domain + ":4445/";
+    tryToConnect("ws://" + domain + ":4444/");
 }
 
 // Change l'état actuel de connexion du site.
-// message: "connected" ou "disconnected" ou "shutdown".
+// message:
+// - "connected": Défini le client comme connecté.
+// - "disconnected": Défini le client comme déconnecté.
+// - "shutdown": Défini le client comme déconnecté et le serveur comme éteint.
 function changeState(message) {
     if (message == "connected") {
         console.log("[CLIENT] Connexion établie.");
@@ -67,7 +71,26 @@ function changeState(message) {
 
         connected = false;
         document.getElementById("text-server-state").innerHTML = "Serveur déconnecté";
-        document.getElementById("text-answer").innerHTML = "Réponse: " + (message == "disconnect" ? "Déconnexion..." : "Extinction...");
+        document.getElementById("text-answer").innerHTML = (message == "disconnect" ? "Déconnexion..." : "Extinction...");
+    }
+}
+
+// Envoi un message au serveur.
+function sendMessage(message) {
+    if (connected) {
+        if (message != "") {
+            webSocket.send(message);
+            document.getElementById("input-message").placeholder = "";
+            document.getElementById("input-message").value = "";
+
+            if (message == "disconnect" || message == "shutdown") {
+                changeState(message);
+            }
+        } else {
+            console.log("[CLIENT] Tentative d'envoi d'un message vide.")
+        }
+    } else {
+        console.log("[CLIENT] Tentative d'envoi d'un message alors que le serveur est déconnecté.");
     }
 }
 
@@ -81,16 +104,8 @@ window.onbeforeunload = function() {
 
 // Évènement appelé lorsque l'élément "button-send" est cliqué.
 function buttonSendOnClick() {
-    // Prend la valeur de l'élément "input-message".
-    var message = document.getElementById("input-message").value;
-
-    if (connected && message != "") {
-        webSocket.send(message);
-
-        if (message == "disconnect" || message == "shutdown") {
-            changeState(message);
-        }
-    }
+    // Envoi la valeur de l'élément "input-message".
+    sendMessage(document.getElementById("input-message").value);
 }
 
 // Évènement appelé lorsqu'une touche est appuyé dans l'élément "input-message".
@@ -104,5 +119,34 @@ function inputMessageOnKeyPress(event) {
     }
 }
 
+// Évènement gérant les pressions clavier sur toute la fenêtre.
+function documentOnKeyPress(event) {
+    // Si le document en focus n'est pas l'input-message (zone d'écriture):
+    if (document.activeElement !== document.getElementById("input-message")) {
+        // Si la touche est Z ou flèche du haut.
+        if (event.keyCode == 90 || event.keyCode ==  38) {
+            // Envoi au serveur un message pour dire au robot d'aller en avant.
+            sendMessage("movf");
+        }
+        // Si la touche est S ou flèche du bas.
+        else if (event.keyCode == 83 || event.keyCode == 40) {
+            // Envoi au serveur un message pour dire au robot d'aller en avant.
+            sendMessage("movb");
+        }
+        // Si la touche est Q ou flèche de gauche.
+        else if (event.keyCode ==  81 || event.keyCode == 37) {
+            // Envoi au serveur un message pour dire au robot d'aller en avant.
+            sendMessage("movl");
+        } 
+        // Si la touche est D ou flèche de droite.
+        else if (event.keyCode == 68 || event.keyCode == 39) {
+            // Envoi au serveur un message pour dire au robot d'aller en avant.
+            sendMessage("movr");
+        }
+    }
+}
+
+// Ajoute un évènement pour récupérer les pressions clavier sur toute la fenêtre (à l'aide de la fonction précédente).
+window.addEventListener("keydown", documentOnKeyPress, false);
 // Tente de connecter le client à l'adrese suivante à l'aide du protocole WebSocket.
-connect("ws://192.168.1.33:4444");
+connect("192.168.1.17");

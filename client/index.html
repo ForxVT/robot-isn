@@ -26,25 +26,31 @@
             </div>
         </div>
 		<h1 id="text-server-state">En attente du serveur...</h1>
-		<div id="div-message">
-			<form id="form-message">
-				<a>Instruction:<br/></a>
-				<input id="input-message" type="text" placeholder="Exemple: set 16 16" onkeypress="inputMessageOnKeyPress(event)" />
-				<button id="button-send" type="button" onclick="buttonSendOnClick()">Envoyer</button>
-			</form>
-			<div id="div-move-buttons">
-				<div>
-					<button id="button-up" class="bouton" style="margin-left: 104px; margin-bottom: 4px;">Haut</button>
-				</div>
-				<div>
-					<button id="button-left" class="bouton">Gauche</button>
-					<button id="button-bottom" class="bouton">Bas</button>
-					<button id="button-right" class="bouton">Droite</button>
-				</div>
-			</div>
-			<span id="text-answer">Réponse: </span>
-            <div>
-                <img src="http://192.168.1.33:4445/"/>
+        <h2>Flux vidéo</h2>
+        <p style="text-align: center;"><img id="img-stream"/></p>
+        <h2>Déplacement</h2>
+        <div id="div-wrapper">
+            <div id="div-buttons">
+                <div>
+                    <button id="button-up" onclick="sendMessage('movf')" style="margin: 4px 0px;">Haut</button>
+                </div>
+                <div>
+                    <button id="button-left" onclick="sendMessage('movl')">Gauche</button>
+                    <button id="button-bottom" onclick="sendMessage('movb')">Bas</button>
+                    <button id="button-right" onclick="sendMessage('movr')">Droite</button>
+                </div>
+            </div>
+        </div>
+        <h2>Échange de message</h2>
+		<div id="div-wrapper">
+            <div id="div-message">
+                <form id="form-message">
+                    <h4>Instruction:</h4>
+                    <input id="input-message" type="text" placeholder="Exemple: set 16 16" onkeypress="inputMessageOnKeyPress(event)" />
+                    <button id="button-send" type="button" onclick="buttonSendOnClick()">Envoyer</button>
+                    <h4 style="margin-top: 8px;">Réponse:</h4>
+                    <p id="text-answer"></p>
+                </form>
             </div>
 		</div>
 

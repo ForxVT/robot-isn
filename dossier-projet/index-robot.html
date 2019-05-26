@@ -56,7 +56,7 @@
 							<div class="image-container">
 								<img src="assets/images/gpio.png" height="480px" />
 							</div>
-							<h6><a>Image montrant les différents ports GPIO d'un Raspberry Pi modèle B+.</a></h6>
+							<h6><a>Image montrant les différents ports GPIO d'un Raspberry Pi 3 B+.</a></h6>
 							<p>Ainsi, il faut dans un premier temps définir quels pins correspondent à quel moteur (2 par moteur). Lorsque les deux pins GPIO contrôlant le moteur sont dans le même état (HIGH ou LOW), le moteur n'est pas activé. C'est lorsqu'un seul de ses inputs est activé (HIGH) que ce dernier tournera dans un certain sens, et quand l'autre input est le seul activé, le moteur tourne dans l'autre sens.</p>
 							<p>Ensuite, il y aussi une caméra connectée au Raspberry Pi, qui elle a un fonctionnement beaucoup plus simple, elle est connectée par un seul élément et n’a pas besoin d’alimentation propre à elle-même, même s’il a ensuite fallu la configurer sur le système du Raspberry Pi.</p>
 							<p>Finalement, un écran tactile est aussi connecté au Raspberry Pi de manière à pouvoir le contrôler sans avoir à le connecter à un écran, un clavier et une souris. L’écran nécessite lui d’être connecté à l’alimentation du Raspberry Pi.</p>
@@ -69,11 +69,11 @@
 						</section>
 					</article>
                     <div id="div-footer">
-                        <a class="p-footer" href="index.html">
+                        <a id="footer-previous" class="p-footer" href="index.html">
                             <span><  </span>
                             <span id="text-footer">Quel est notre projet ?</span>
                         </a>
-                        <a class="p-footer" href="index-serveur.html" style="float: right;">
+                        <a id="footer-next" class="p-footer" href="index-serveur.html" style="float: right;">
                             <span id="text-footer">Comment fonctionne le serveur ?</span>
                             <span>  ></span>
                         </a>
@@ -90,5 +90,7 @@
 				</div>
 			</div>
 		</div>
+
+        <script src="assets/scripts/index.js"></script>
 	</body>
 </html>

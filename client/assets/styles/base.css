@@ -91,9 +91,9 @@ form {
 
 #div-tank {
     position: fixed;
-    width: 100%;
-    margin-top: -60px;
     margin-left: 275px;
+    left: 50%;
+    margin-top: 5px;
 }
 
 #img-stream {
